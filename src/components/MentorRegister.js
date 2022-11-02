@@ -1,12 +1,13 @@
+
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./mix.css";
 import { API } from "./global";
-import Header from "./Header";
+import MentorHeader from "./MentorHeader";
 
-const Register = () => {
+const MentorRegister = () => {
   const [passShow, setPassShow] = useState(false);
   const [cpassShow, setCPassShow] = useState(false);
 
@@ -15,7 +16,7 @@ const Register = () => {
     email: "",
     password: "",
     cpassword: "",
-    role:'student',
+    role:"mentor"
   });
 
   const setVal = (e) => {
@@ -70,7 +71,7 @@ const Register = () => {
     } else {
       // console.log("user registration succesfully done");
 
-      const data = await fetch(`${API}/register`, {
+      const data = await fetch(`${API}/admin/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,7 +98,7 @@ const Register = () => {
           email: "",
           password: "",
           cpassword: "",
-          role:'student'
+          role:"mentor"
         });
       }
     }
@@ -105,7 +106,7 @@ const Register = () => {
 
   return (
     <>
-     <Header/>
+     <MentorHeader/>
       <section>
         <div className="form_data">
           <div className="form_heading">
@@ -121,11 +122,11 @@ const Register = () => {
               <label htmlFor="role">Role</label>
               <input
                 type="text"
-                
+               
                 value={inpval.role}
                 name="role"
                 id="role"
-            
+             
               />
             </div>
             <div className="form_input">
@@ -194,7 +195,7 @@ const Register = () => {
               Sign Up
             </button>
             <p>
-              Already have an account? <NavLink to="/">Log In</NavLink>
+              Already have an account? <NavLink to="/mentorlogin">Log In</NavLink>
             </p>
           </form>
           <ToastContainer />
@@ -204,4 +205,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default MentorRegister;

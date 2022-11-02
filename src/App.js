@@ -7,12 +7,13 @@ import ForgotPassword from "./components/ForgotPassword";
 import Error from "./components/Error";
 import MentorLogin from "./components/MentorLogin";
 import MentorDashboard from "./components/MentorDashboard";
-import { API } from "./components/global";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import MentorRegister from "./components/MentorRegister";
+import MentorPasswordReset from "./components/MentorPasswordReset";
+import Home from './components/Home';
+
 import { Routes, Route, useNavigate } from "react-router-dom"
-import { useEffect, useContext, useState } from "react";
-import { LoginContext } from "./components/ContextProvider/Context";
+
+import MentorForgotPassword from "./components/MentorForgetPassword";
 
 function App() {
 
@@ -61,14 +62,16 @@ function App() {
             {/* <Header /> */}
 
             <Routes>
-              
-              <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/mentorregister" element={<MentorRegister />} />
               <Route path="/dash" element={<Dashboard />} />
               <Route path="/mentordashboard" element={<MentorDashboard/>} />
               <Route path="/mentorlogin" element={<MentorLogin/>} />
               <Route path="*" element={<Error />} />
               <Route path="/password-reset" element={<PasswordReset />} />
+              <Route path="/mentorpasswordreset" element={<MentorPasswordReset />} />
               <Route path="/forgotpassword/:id/:token" element={<ForgotPassword />} />
         
             </Routes>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./mix.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useRevalidator } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { API } from "./global";
@@ -11,6 +11,7 @@ const Login = () => {
   const [inpval, setInpval] = useState({
     email: "",
     password: "",
+    role:"student"
   });
   const history = useNavigate();
   const setVal = (e) => {
@@ -28,7 +29,7 @@ const Login = () => {
   const loginuser = async (e) => {
     e.preventDefault();
 
-    const { email, password } = inpval;
+    const { email, password,role } = inpval;
 
     // if (email === "") {
     //   toast.error("email is required!", {
@@ -56,6 +57,9 @@ const Login = () => {
       } else if (password.length < 6) {
         alert("password must be 6 characters");
       }
+       else if (role!=='student') {
+        alert("you are not registered as student");
+      }
     else {
       //console.log("user Login succesful");
       const data = await fetch(`${API}/login`, {
@@ -66,15 +70,17 @@ const Login = () => {
         body: JSON.stringify({
           email,
           password,
+          role
         }),
       });
 
       const res = await data.json();
-      //console.log(res);
-      if (res.status == 201) {
+      if (res.status == 404) {
+        alert("you are not registered as student")}
+     else if (res.status == 201) {
         localStorage.setItem("usersdatatoken", res.result.token);
         history("/dash");
-        setInpval({ ...inpval, email: "", password: "" });
+        setInpval({ ...inpval, email: "", password: "" ,role:"student"});
       }
     }
   };
@@ -89,6 +95,17 @@ const Login = () => {
             <p>Hi,we are glad you are back.Please Login</p>
           </div>
           <form>
+          <div className="form_input">
+              <label htmlFor="role">Role</label>
+              <input
+                type="role"
+                name="role"
+                id="role"
+           
+              
+                value={inpval.role}
+              ></input>
+            </div>
             <div className="form_input">
               <label htmlFor="email">Email</label>
               <input

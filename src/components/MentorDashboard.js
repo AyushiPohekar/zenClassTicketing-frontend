@@ -4,7 +4,7 @@ import { MentorLoginContext } from "./ContextProvider/mentorContext";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { API } from "./global";
-import Header from "./Header";
+import MentorHeader from "./MentorHeader";
 
 const MentorDashboard = () => {
   const { logindata, setLoginData } = useContext(MentorLoginContext);
@@ -45,7 +45,7 @@ const MentorDashboard = () => {
 
   return (
     <>
- 
+        <MentorHeader/>
             {
                 data ? 
                 <div>Mentorpage</div>                

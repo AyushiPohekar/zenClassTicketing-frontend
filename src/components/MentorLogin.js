@@ -4,13 +4,14 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { API } from "./global";
-import Header from "./Header";
+import MentorHeader from "./MentorHeader";
 
 const MentorLogin = () => {
   const [passShow, setPassShow] = useState(false);
   const [inpval, setInpval] = useState({
     email: "",
     password: "",
+    role: "mentor",
   });
   const history = useNavigate();
   const setVal = (e) => {
@@ -28,7 +29,7 @@ const MentorLogin = () => {
   const loginuser = async (e) => {
     e.preventDefault();
 
-    const { email, password } = inpval;
+    const { email, password, role } = inpval;
 
     // if (email === "") {
     //   toast.error("email is required!", {
@@ -47,16 +48,15 @@ const MentorLogin = () => {
     //     position: "top-center",
     //   });
     // }
-     if (email === "") {
-        alert("please enter your email");
-      } else if (!email.includes("@")) {
-        alert("Enter valid email");
-      } else if (password === "") {
-        alert("Enter your password");
-      } else if (password.length < 6) {
-        alert("password must be 6 characters");
-      }
-    else {
+    if (email === "") {
+      alert("please enter your email");
+    } else if (!email.includes("@")) {
+      alert("Enter valid email");
+    } else if (password === "") {
+      alert("Enter your password");
+    } else if (password.length < 6) {
+      alert("password must be 6 characters");
+    } else {
       //console.log("user Login succesful");
       const data = await fetch(`${API}/admin/login`, {
         method: "POST",
@@ -66,22 +66,24 @@ const MentorLogin = () => {
         body: JSON.stringify({
           email,
           password,
+          role,
         }),
       });
 
       const res = await data.json();
-      //console.log(res);
-      if (res.status == 201) {
+      if (res.status == 404) {
+        alert("you are not registered as mentor");
+      } else if (res.status == 201) {
         localStorage.setItem("usersdatatoken", res.result.token);
         history("/mentordashboard");
-        setInpval({ ...inpval, email: "", password: "" });
+        setInpval({ ...inpval, email: "", password: "", role: "mentor" });
       }
     }
   };
 
   return (
     <>
-    <Header/>
+      <MentorHeader />
       <section>
         <div className="form_data">
           <div className="form_heading">
@@ -89,6 +91,15 @@ const MentorLogin = () => {
             <p>Hi,we are glad you are back.Please Login</p>
           </div>
           <form>
+            <div className="form_input">
+              <label htmlFor="role">Role</label>
+              <input
+                type="role"
+                name="role"
+                id="role"
+                value={inpval.role}
+              ></input>
+            </div>
             <div className="form_input">
               <label htmlFor="email">Email</label>
               <input
@@ -120,14 +131,13 @@ const MentorLogin = () => {
               </div>
             </div>
             <button className="btn" onClick={loginuser}>
-              
               Login
             </button>
             <p>
-              Don't have an Account?<NavLink to="/register">Sign Up</NavLink>
+              Don't have an Account?<NavLink to="/mentorregister">Sign Up</NavLink>
             </p>
             <p style={{ color: "black", fontWeight: "bold" }}>
-              Forgot Password<NavLink to="/password-reset">Click here</NavLink>
+              Forgot Password<NavLink to="/mentorpasswordreset">Click here</NavLink>
             </p>
           </form>
           <ToastContainer />

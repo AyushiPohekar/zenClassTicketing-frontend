@@ -1,0 +1,16 @@
+.Homediv{
+    max-width: 550px;
+ 
+    margin: 25px auto;
+    padding: 35px 10px;
+    box-shadow: 0 0 15px -10px #2d3748;
+    border-radius: 10px;
+    display: flex;
+   justify-content: center;
+    align-items: center;
+}
+.Homebtns{
+    display: flex;
+    flex-direction: column;
+   row-gap: 20px;
+}
