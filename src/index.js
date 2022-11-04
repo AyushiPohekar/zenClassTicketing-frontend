@@ -16,13 +16,15 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
  
   <React.StrictMode>
-    <MentorContext>
     <Context>
+    <MentorContext>
+    
     <BrowserRouter>
     <App />
     </BrowserRouter>
-    </Context>
+    
     </MentorContext>
+    </Context>
   </React.StrictMode>
 );
 

@@ -4,7 +4,7 @@ import { LoginContext } from "./ContextProvider/Context";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { API } from "./global";
-import StudentNavbar from "../StudentQueries/StudentNavbar";
+import Header from './Header';
 
 const Dashboard = () => {
   const { logindata, setLoginData } = useContext(LoginContext);
@@ -45,7 +45,7 @@ const Dashboard = () => {
 
   return (
     <>
-        <StudentNavbar/>
+    <Header/>
             {
                 data ? 
                 <div>Querypage</div>                
