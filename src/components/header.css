@@ -1,22 +1,43 @@
-header{
-    width: 100%;
-    height: 100px;
 
-}
-header nav{
-    max-width: 85%;
+ nav{
+    width: 100%;
     height: 98%;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
- 
+   padding: 10px;
+}
+.studentbar{
+    display: flex;
+   width:400px;
+   color:black;
+    margin-left:2rem;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 600;
+    font-size: larger;
+    cursor: pointer;
 }
 
 .zenimage{
-
+    
     padding-top: 2rem;
 }
-header nav .avtar{
+
+.zenimage1{
+    height:50px;
+    width:50px;
+}
+ nav .avtar{
+  
+
+    margin-right: 2rem;
+    width:180px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.avt{
     cursor: pointer;
 }

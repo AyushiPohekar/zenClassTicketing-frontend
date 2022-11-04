@@ -5,6 +5,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { API } from "./global";
 import Header from './Header';
+import StudentQuerylist from '../StudentQueries/StudentQuerylist'
+import { Studentqueries } from "../StudentQueries/Studentqueries";
+import './mix.css';
 
 const Dashboard = () => {
   const { logindata, setLoginData } = useContext(LoginContext);
@@ -48,9 +51,13 @@ const Dashboard = () => {
     <Header/>
             {
                 data ? 
-                <div>Querypage</div>                
+                <>
+                <div className="dash1">
+                <button className="dashbtn"> +Create Query</button>
+                </div>                
                 
-                
+                <StudentQuerylist/>
+                </>
                 : <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>
                     Loading... &nbsp;
                     <CircularProgress />

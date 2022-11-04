@@ -148,3 +148,21 @@ form .btn:hover{
     color:#718096 ;
     border-bottom: 2px solid #8694a8;
 }
+/* 
+dashboard */
+
+.dash1{
+    background-color: rgba(211, 205, 211, 0.479);
+    padding: 5px;
+   
+}
+.dashbtn{
+    border-radius: 8px;
+    padding: 2px;
+    color: rgb(1, 1, 61);
+    background-color: #fff;
+    border: 1px solid  rgb(1, 1, 61);
+    font-weight: 10px;
+    width: 150px;
+    margin-left: 2px;
+}

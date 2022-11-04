@@ -7,3 +7,64 @@
     background-color: rgb(236, 225, 236);
     padding: 10px;
 }
+
+
+/* Querylist */
+
+.Studentqueries-list{
+    max-width: 700px;
+    margin: 10px auto;
+    padding: 35px 10px;
+    box-shadow: 0 0 15px -10px #2d3748;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap:1.5rem
+}
+
+.dashcontainer{
+    background-color: #fff;
+    -webkit-box-shadow: 0px 3px 11px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 11px -1px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 11px -1px rgba(0,0,0,0.75);
+    padding:6px;
+     border-radius: 10px;
+    width:650px;
+    min-width: 400px;
+    cursor: pointer;
+  
+}
+
+.dash3{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #fff;
+}
+.dash2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #fff;
+}
+.querytitle{
+    font-size: 1rem;
+}
+.querystatus1{
+    padding: 1px 13px;
+    font-size: 0.7rem;
+    border-radius: 8px;
+}
+.querycategory{
+    background-color:#ece7ee ;
+    color: #415069;
+    padding:1px 13px ;
+    border-radius: 8px;
+    font-size: 0.8rem;
+
+}
+.querydate{
+    color: #415069;
+    font-size: 0.8rem;
+}
