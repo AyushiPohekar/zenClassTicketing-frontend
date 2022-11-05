@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import './Student.css'
 
-export function Studentqueries({stu}) {
+export function Studentqueries({stu,_id}) {
     const styles = {
         backgroundColor: stu.status1== "OPEN" ? " #D5FFD3":"#F5BAA8",
         color:stu.status1== "OPEN" ? "green":"red",
@@ -11,7 +11,7 @@ export function Studentqueries({stu}) {
       };
   const navigate = useNavigate();
   return (
-    <div className='dashcontainer'>
+    <div className='dashcontainer' onClick={()=>navigate(`/dash/${_id}`)}>
     <div className="dash3">
         <h5 className="querytitle">{stu.subject}</h5>
         <p className="querystatus1" style={styles}>{stu.status1}</p>

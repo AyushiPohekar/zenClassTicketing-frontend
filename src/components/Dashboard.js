@@ -13,7 +13,7 @@ const Dashboard = () => {
   const { logindata, setLoginData } = useContext(LoginContext);
   const [data, setData] = useState(false);
 
-  const history = useNavigate();
+  const navigate = useNavigate();
   const DashboardValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
 
@@ -28,9 +28,9 @@ const Dashboard = () => {
     const data = await res.json();
     if (data.status == 401 || !data) {
   
-      history("*");
+      navigate("*");
     } else {
-      history("/dash");
+      navigate("/dash");
       setLoginData(data);
    
     }
@@ -53,7 +53,7 @@ const Dashboard = () => {
                 data ? 
                 <>
                 <div className="dash1">
-                <button className="dashbtn"> +Create Query</button>
+                <button className="dashbtn" onClick={() => navigate("/dash/create")}> +Create Query</button>
                 </div>                
                 
                 <StudentQuerylist/>

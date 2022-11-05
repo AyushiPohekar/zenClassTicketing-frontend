@@ -10,10 +10,11 @@ import MentorDashboard from "./components/MentorDashboard";
 import MentorRegister from "./components/MentorRegister";
 import MentorPasswordReset from "./components/MentorPasswordReset";
 import Home from './components/Home';
-
+import CreateQuery from "./StudentQueries/CreateQuery";
 import { Routes, Route, useNavigate } from "react-router-dom"
 
 import MentorForgotPassword from "./components/MentorForgetPassword";
+import Querydetails from "./StudentQueries/Querydetails";
 
 function App() {
 
@@ -73,6 +74,8 @@ function App() {
               <Route path="/password-reset" element={<PasswordReset />} />
               <Route path="/mentorpasswordreset" element={<MentorPasswordReset />} />
               <Route path="/forgotpassword/:id/:token" element={<ForgotPassword />} />
+              <Route path="/dash/:_id" element={<Querydetails />} />
+              <Route path="/dash/create" element={<CreateQuery />} />
         
             </Routes>
           </>

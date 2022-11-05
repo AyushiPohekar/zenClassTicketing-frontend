@@ -1,112 +1,239 @@
-import { useState } from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import React from "react";
+import Header from "../components/Header";
+import { useContext } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { API } from "../components/global";
 import { useNavigate } from "react-router-dom";
+import { LoginContext } from "../components/ContextProvider/Context";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import "./Student.css";
+
+const CreateQuery = () => {
+
+  const { logindata, setLoginData } = useContext(LoginContext);
+  console.log(logindata)
+  const [data, setData] = useState(false);
 
 
+  const QuerydetailsValid = async () => {
+    let token = localStorage.getItem("usersdatatoken");
 
-const queryValidationSchema=yup.object({
- subject: yup.string().required("Why not fill this subject?"),
-     category:yup.string().required("Why not fill this category?") ,
-     description: yup.string().required("Why not fill this description?"),
-     subCategory: yup.string().required("Why not fill this subcategory?"),
-     sender:yup.string().required("Why not fill this subcategory?")
-})
-
-export function Addmovie() {
-  // const [name, setName] = useState("");
-  // const [rating, setRating] = useState("");
-  // const [poster, setPoster] = useState("");
-  // const [summary, setSummary] = useState("");
-  // const [trailer, setTrailer] = useState("");
-
-  const navigate = useNavigate();
-  const addmovie = (newmovie) => {
-    
-
-    // setmovieList([...movieList, newmovie]);
-
-    //POST
-    //1.METHOD-POST
-    //2.data and JSON
-    //3.headers-JSON
-
-    fetch(`https://62a970daec36bf40bdb78cff.mockapi.io/movies`, {
-      method: "POST",
-      body: JSON.stringify(newmovie),
+    const res = await fetch(`${API}/validuser`, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
+        Authorization: token,
       },
-    }).then(() => navigate("/movies"));
+    });
 
+    const data = await res.json();
+    if (data.status == 401 || !data) {
+      navigate("*");
+    } else {
+      setLoginData(data);
+    }
   };
-  const {handleSubmit,values,handleChange,handleBlur,touched,errors}=useFormik({
-    initialValues:
-    {name: "",
-      poster: "",
-      rating: "",
-      summary: "",
-      trailer: "",},
-    validationSchema:movieValidationSchema,
-    onSubmit:(newmovie)=>{
-    
-      console.log("onSubmit",newmovie);
-      addmovie(newmovie);
-    },
+
+  useEffect(() => {
+    setTimeout(() => {
+      QuerydetailsValid();
+      setData(true);
+    }, 2000);
+  }, []);
+
+  const navigate = useNavigate();
+  const queryValidationSchema = yup.object({
+    subject: yup.string().required("Select a subject"),
+    category: yup.string().required("Select a category"),
+    subCategory: yup.number().required("Select a subcategory"),
+    description: yup.string().required("Select a description"),
+    preferredLanguage: yup.string().required("Select a preferred language"),
+    from: yup.string().required("You are available from time?"),
+    till: yup.string().required("You are available from till?"),
   });
 
-  return (
-
-    <form onSubmit={handleSubmit} className='add-movie-form'>
-
-      <TextField 
-      label="Name" 
-      variant="outlined"
-      value={values.name} 
-      name="name" 
-      onChange={handleChange} 
-      onBlur={handleBlur}
-      error={touched.name && errors.name}
-     helperText  ={touched.name && errors.name ?errors.name: ""}/> 
-
-      <TextField label="Poster" variant="outlined" 
-      value={values.poster} 
-      name="poster" 
-      onChange={handleChange} 
-      onBlur={handleBlur}
-      error={touched.poster && errors.poster}
-      helperText= {touched.poster && errors.poster ?errors.poster: ""}/>
-     
-
-      <TextField label="Rating" variant="outlined" 
-      value={values.rating} 
-      name="rating" 
-      onChange={handleChange} 
-      onBlur={handleBlur} 
-      error={touched.rating && errors.rating}
-      helperText=  {touched.rating && errors.rating ?errors.rating: ""}/>
-
-    
-      <TextField label="Summary" variant="outlined" 
-      value={values.summary} 
-      name="summary" 
-      onChange={handleChange} 
-      onBlur={handleBlur} 
-      error={touched.summary && errors.summary}
-      helperText={touched.summary && errors.summary ?errors.summary: ""}/>
-
-      
-<TextField label="trailer" variant="outlined" 
-      value={values.trailer} 
-      name="trailer" 
-      onChange={handleChange} 
-      onBlur={handleBlur} 
-      error={touched.trailer && errors.trailer}
-      helperText={touched.trailer && errors.trailer ?errors.trailer: ""}/>
-    
+  const addquery = (newquery) => {
+    let token = localStorage.getItem("usersdatatoken");
    
-      <Button type="submit" variant="outlined">Add Movie</Button>
-    </form>
+    fetch(`${API}/queries`, {
+      method: "POST",
+      body: JSON.stringify(newquery),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    }).then(() => navigate("/dash"));
+  };
+  const { handleSubmit, values, handleChange, handleBlur, touched, errors } =
+    useFormik({
+      initialValues: {
+        subject: "",
+        category: "",
+        subCategory: "",
+        description: "",
+        preferredLanguage: "",
+        from: "",
+        till: "",
+      },
+      validationSchema: queryValidationSchema,
+      onSubmit: (newquery) => {
+        console.log("onSubmit", newquery);
+        addquery(newquery);
+      },
+    });
 
+  return (
+    <>
+      <Header />
+      <div className="dash1">
+        <button className="backbtn" onClick={() => navigate(-1)}>
+      
+          Back
+        </button>
+      </div>
+      <form className="QuerydetailsContainer" onSubmit={handleSubmit}>
+        <div className="Topic">Topic</div>
+        <div className="div1">
+          <div className="div2">
+            <label className="Category">Category</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usr"
+              name="category"
+              value={values.category}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.category && errors.category}
+              helperText={
+                touched.category && errors.category ? errors.category : ""
+              }
+            ></input>
+          </div>
+          <div className="div2">
+            <label className="Category">Sub-Category</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usr"
+              name="subCategory"
+              value={values.subCategory}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.subCategory && errors.subCategory}
+              helperText={
+                touched.subCategory && errors.subCategory ? errors.subCategory : ""
+              }
+            ></input>
+            
+          </div>
+          <div className="div2">
+            <label className="Category">
+              Prefered Voice Communication Language
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="usr"
+              name="subject"
+              value={values.preferredLanguage}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.preferredLanguage && errors.preferredLanguage}
+              helperText={
+                touched.preferredLanguage && errors.preferredLanguage ? errors.preferredLanguage : ""
+              }
+            ></input>
+          </div>
+        </div>
+        <div className="Topic">Details</div>
+        <div className="div1">
+          <div>
+            <label className="Category">Query Title</label>
+
+            <input
+              type="text"
+              class="form-control"
+              id="usr"
+              name="subject"
+              value={values.subject}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.subject && errors.subject}
+              helperText={
+                touched.subject && errors.subject ? errors.subject : ""
+              }
+            ></input>
+          </div>
+          <div>
+            <label className="Category">Query Description</label>
+            <textarea
+              class="form-control"
+              rows="5"
+              id="comment"
+              name="description"
+              value={values.description}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.description && errors.description}
+              helperText={
+                touched.description && errors.description
+                  ? errors.description
+                  : ""
+              }
+            ></textarea>
+          </div>
+        </div>
+        <div className="Topic">
+          Your available Time ? ( Ours : 9:00 AM - 7:00 PM )
+        </div>
+        <div className="div1">
+          <div>
+            <label className="Category">From:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usr"
+              name="from"
+              value={values.from}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.from && errors.from}
+              helperText={touched.from && errors.from ? errors.from : ""}
+            ></input>
+          </div>
+          <div>
+            <label className="Category">Till:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="usr"
+              name="till"
+              value={values.till}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              error={touched.till && errors.till}
+              helperText={touched.till && errors.till ? errors.till : ""}
+            ></input>
+          </div>
+        </div>
+
+        <div className="btnContainer">
+          <div className="btndiv">
+            <button className="cancelbtn" onClick={() => navigate("/dash")}>
+              Cancel
+            </button>
+            <button type="submit" className="createbtn" >
+              Create
+            </button>
+          </div>
+        </div>
+      </form>
+    </>
   );
-}
+};
+
+export default CreateQuery;
