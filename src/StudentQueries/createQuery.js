@@ -8,6 +8,7 @@ import { API } from "../components/global";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../components/ContextProvider/Context";
 import "./Student.css";
+import { QueryListContext } from "../components/ContextProvider/QueryContext";
 
 const CreateQuery = () => {
 
@@ -40,7 +41,7 @@ const CreateQuery = () => {
   //     setData(true);
   //   }, 2000);
   // }, []);
- const [studentlist, setStudentlist] = useState([]);
+  const [querylist,setQueryList] = useContext(QueryListContext);
   const [subject, setsubject] = useState("");
   const [category, setcategory] = useState("");
   const [subCategory, setSubCategory] = useState("");
@@ -63,10 +64,10 @@ const CreateQuery = () => {
       till: till,
     };
   
-    console.log("newquery",newquery)
-    setStudentlist([...studentlist, newquery]);
+    // console.log("newquery",newquery)
+    setQueryList([...querylist, newquery]);
   
-    console.log("Studenlist",studentlist)
+    // console.log("Studenlist",querylist)
 
   let token = localStorage.getItem("usersdatatoken");
   
@@ -203,10 +204,10 @@ const CreateQuery = () => {
             <button className="cancelbtn" onClick={() => navigate("/dash")}>
               Cancel
             </button>
-            {/* <button type="button" onClick={addquery} className="createbtn">
+            <button type="button" onClick={addquery} className="createbtn">
               Create
-            </button> */}
-            <a type="submit" className="btn btn-primary" onClick={addquery}>create</a>
+            </button>
+            {/* <a type="submit" className="btn btn-primary" onClick={addquery}>create</a> */}
           </div>
         </div>
       </form>
