@@ -12,35 +12,35 @@ import { QueryListContext } from "../components/ContextProvider/QueryContext";
 
 const CreateQuery = () => {
 
-  // const { logindata, setLoginData } = useContext(LoginContext);
-  // console.log(logindata);
-  // const [data, setData] = useState(false);
+  const { logindata, setLoginData } = useContext(LoginContext);
+  console.log(logindata);
+  const [data, setData] = useState(false);
 
-  // const QuerydetailsValid = async () => {
-  //   let token = localStorage.getItem("usersdatatoken");
+  const QuerydetailsValid = async () => {
+    let token = localStorage.getItem("usersdatatoken");
 
-  //   const res = await fetch(`${API}/validuser`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: token,
-  //     },
-  //   });
+    const res = await fetch(`${API}/validuser`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
 
-  //   const data = await res.json();
-  //   if (data.status == 401 || !data) {
-  //     navigate("*");
-  //   } else {
-  //     setLoginData(data);
-  //   }
-  // };
+    const data = await res.json();
+    if (data.status == 401 || !data) {
+      navigate("*");
+    } else {
+      setLoginData(data);
+    }
+  };
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     QuerydetailsValid();
-  //     setData(true);
-  //   }, 2000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      QuerydetailsValid();
+      setData(true);
+    }, 2000);
+  }, []);
   const [querylist,setQueryList] = useContext(QueryListContext);
   const [subject, setsubject] = useState("");
   const [category, setcategory] = useState("");
