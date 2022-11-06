@@ -1,14 +1,21 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
+
 import { useNavigate } from "react-router-dom";
 import "./Student.css";
-import { API } from "../components/global";
 
-import { useState } from "react";
+
 
 
 
 export function MentorQueries({ men, _id  }) {
+    
+
+
+    const styles = {
+        backgroundColor: men.status1 == "OPEN" ? " #D5FFD3" : "#F5BAA8",
+        color: men.status1 == "OPEN" ? "green" : "red",
+      };
+
  const navigate = useNavigate();
   return (
     <div className="dashcontainer" >
@@ -17,7 +24,7 @@ export function MentorQueries({ men, _id  }) {
      
           
         
-            <p className="querystatus1" >{men.status1}</p>
+            <p style={styles} className="querystatus1" >{men.status1}</p>
            
         
       </div>
@@ -27,6 +34,8 @@ export function MentorQueries({ men, _id  }) {
           {new Date(men.openAt).toLocaleString()}
         </span>
       </div>
+
+      
     </div>
   );
 }

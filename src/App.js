@@ -16,7 +16,7 @@ import { useEffect,useState } from "react";
 import { API } from "./components/global";
 import MentorForgotPassword from "./components/MentorForgetPassword";
 import Querydetails from "./StudentQueries/Querydetails";
-
+import MentorQuerydetails from "./MentorQueries/MentorQuerydetails"
 function App() {
   
 
@@ -77,6 +77,7 @@ function App() {
               <Route path="/mentorpasswordreset" element={<MentorPasswordReset />} />
               <Route path="/forgotpassword/:id/:token" element={<ForgotPassword />} />
               <Route path="/dash/:_id" element={<Querydetails />} />
+              <Route path="/mentordashboard/:_id" element={< MentorQuerydetails />} />
                <Route path="/dash/create" element={<CreateQuery />} /> 
         
             </Routes>

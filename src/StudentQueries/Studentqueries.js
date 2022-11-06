@@ -5,14 +5,19 @@ import "./Student.css";
 import { API } from "../components/global";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useContext } from "react";
+import { QueryListContext } from "../components/ContextProvider/QueryContext";
 export function Studentqueries({ stu, _id, allStudentqueries  }) {
 
-  const [queryList, setqueryList] = useState([]);
-
+  // const [queryList, setqueryList] = useState([]);
+  const [querylist,setQueryList] = useContext(QueryListContext);
   const getquery = () => {
-    fetch(`${API}/queries`, { method: "GET" })
+    fetch(`${API}/queries`, { method: "GET" ,headers: {
+      "Content-Type": "application/json",
+      "Authorization": token
+    },})
       .then((data) => data.json())
-      .then((eqs) => setqueryList(eqs));
+      .then((eqs) => setQueryList(eqs));
   };
 
   useEffect(() => getquery(), []);

@@ -1,13 +1,13 @@
 import { Studentqueries} from "./Studentqueries";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import './Student.css'
 import { API } from "../components/global";
-
+import { QueryListContext } from "../components/ContextProvider/QueryContext";
 import React from "react";
 
 function StudentQuerylist() {
-   const [studentlist, setStudentlist] = useState([]);
+  const [querylist,setQueryList] = useContext(QueryListContext);
 
 
  
@@ -19,7 +19,7 @@ function StudentQuerylist() {
         "Authorization": token
       }, })
       .then((data) => data.json())
-      .then((eqs) => setStudentlist(eqs));
+      .then((eqs) => setQueryList(eqs));
   };
 
   useEffect(() => allStudentqueries(), []);
@@ -29,7 +29,7 @@ function StudentQuerylist() {
     <div >
     
     <div className="Studentqueries-list">
-    {studentlist.map((stu)=>(<Studentqueries stu={stu}  _id={stu._id}  allStudentqueries ={ allStudentqueries }/>))} 
+    {querylist.map((stu)=>(<Studentqueries stu={stu}  _id={stu._id}  allStudentqueries ={ allStudentqueries }/>))} 
 
   
     </div>

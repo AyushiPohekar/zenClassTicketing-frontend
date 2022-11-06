@@ -9,6 +9,7 @@ import './index.css';
 import App from './App';
 import Context from './components/ContextProvider/Context';
 import MentorContext from './components/ContextProvider/mentorContext';
+import QueryContext from './components/ContextProvider/QueryContext';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 
@@ -16,15 +17,17 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
  
   <React.StrictMode>
+    
     <Context>
     <MentorContext>
-    
+    <QueryContext>
     <BrowserRouter>
     <App />
     </BrowserRouter>
-    
+    </QueryContext>
     </MentorContext>
     </Context>
+   
   </React.StrictMode>
 );
 
