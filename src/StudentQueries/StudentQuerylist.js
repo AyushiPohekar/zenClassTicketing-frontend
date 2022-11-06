@@ -29,7 +29,7 @@ function StudentQuerylist() {
     <div >
     
     <div className="Studentqueries-list">
-    {studentlist.map((stu)=>(<Studentqueries stu={stu}  _id={stu._id} setStudentlist={setStudentlist}/>))} 
+    {studentlist.map((stu)=>(<Studentqueries stu={stu}  _id={stu._id}  allStudentqueries ={ allStudentqueries }/>))} 
 
   
     </div>

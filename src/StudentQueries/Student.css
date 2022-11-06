@@ -32,7 +32,7 @@
      border-radius: 10px;
     width:650px;
     min-width: 400px;
-    cursor: pointer;
+   
   
 }
 
@@ -50,11 +50,27 @@
 }
 .querytitle{
     font-size: 1rem;
+    cursor: pointer;
+}
+.querytitle:hover{
+    opacity: 0.7;
+}
+.stsp{
+    display: flex;
+    flex-direction: row;
 }
 .querystatus1{
     padding: 1px 13px;
     font-size: 0.7rem;
     border-radius: 8px;
+}
+.queryclose{
+    padding: 1px 13px;
+    font-size: 0.7rem;
+    border-radius: 8px;
+    border: 0.2px solid  rgb(1, 1, 61);
+    color: rgb(1, 1, 61);
+    text-decoration:none
 }
 .querycategory{
     background-color:#ece7ee ;
