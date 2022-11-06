@@ -37,7 +37,7 @@ export function Studentqueries({ stu, _id, allStudentqueries  }) {
     redirect: 'follow'
   };
  
-  const updatequery=(_id)=>{fetch(`http://localhost:8009/queries/close-query/${_id}`, requestOptions)
+  const updatequery=(_id)=>{fetch(`${API}/queries/close-query/${_id}`, requestOptions)
     .then(response => response.text())
     .then(()=> allStudentqueries ())
     .catch(error => console.log('error', error));};

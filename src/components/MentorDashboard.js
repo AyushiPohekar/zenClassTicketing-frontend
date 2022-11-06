@@ -5,12 +5,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { API } from "./global";
 import MentorHeader from "./MentorHeader";
+import MentorQuerylist from "../MentorQueries/MentorQueryList";
 
 const MentorDashboard = () => {
   const { logindata, setLoginData } = useContext(MentorLoginContext);
   const [data, setData] = useState(false);
 
-  const history = useNavigate();
+  const navigate = useNavigate();
   const MentorDashboardValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
 
@@ -25,9 +26,9 @@ const MentorDashboard = () => {
     const data = await res.json();
     if (data.status == 401 || !data) {
   
-      history("*");
+      navigate("*");
     } else {
-      history("/mentordashboard");
+      navigate("/mentordashboard");
       setLoginData(data);
    
     }
@@ -48,7 +49,14 @@ const MentorDashboard = () => {
         <MentorHeader/>
             {
                 data ? 
-                <div>Mentorpage</div>                
+                <>
+                <div className="dash1">
+                <button className="dashbtn" onClick={() => navigate(-1)}>Back</button>
+                </div> 
+
+                <MentorQuerylist/>
+
+                </>               
                 
                 
                 : <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>

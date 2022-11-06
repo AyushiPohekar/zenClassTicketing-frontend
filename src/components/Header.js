@@ -34,10 +34,10 @@ const Header = () => {
     });
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     if (data.status == 201) {
-      console.log("user logout");
+      // console.log("user logout");
       localStorage.removeItem("usersdatatoken");
       setLoginData(false);
       navigate("/");
