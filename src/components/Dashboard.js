@@ -56,7 +56,7 @@ const Dashboard = () => {
                 <button className="dashbtn" onClick={() => navigate("/dash/create")}> +Create Query</button>
                 </div>                
                 
-                <StudentQuerylist/>
+                <StudentQuerylist />
                 </>
                 : <Box sx={{ display: 'flex', justifyContent: "center", alignItems: "center", height: "100vh" }}>
                     Loading... &nbsp;

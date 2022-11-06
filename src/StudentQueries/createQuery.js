@@ -7,146 +7,145 @@ import { useEffect } from "react";
 import { API } from "../components/global";
 import { useNavigate } from "react-router-dom";
 import { LoginContext } from "../components/ContextProvider/Context";
-import { useFormik } from "formik";
-import * as yup from "yup";
 import "./Student.css";
 
 const CreateQuery = () => {
 
-  const { logindata, setLoginData } = useContext(LoginContext);
-  console.log(logindata)
-  const [data, setData] = useState(false);
+  // const { logindata, setLoginData } = useContext(LoginContext);
+  // console.log(logindata);
+  // const [data, setData] = useState(false);
 
+  // const QuerydetailsValid = async () => {
+  //   let token = localStorage.getItem("usersdatatoken");
 
-  const QuerydetailsValid = async () => {
-    let token = localStorage.getItem("usersdatatoken");
+  //   const res = await fetch(`${API}/validuser`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: token,
+  //     },
+  //   });
 
-    const res = await fetch(`${API}/validuser`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
+  //   const data = await res.json();
+  //   if (data.status == 401 || !data) {
+  //     navigate("*");
+  //   } else {
+  //     setLoginData(data);
+  //   }
+  // };
 
-    const data = await res.json();
-    if (data.status == 401 || !data) {
-      navigate("*");
-    } else {
-      setLoginData(data);
-    }
-  };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     QuerydetailsValid();
+  //     setData(true);
+  //   }, 2000);
+  // }, []);
+ const [studentlist, setStudentlist] = useState([]);
+  const [subject, setsubject] = useState("");
+  const [category, setcategory] = useState("");
+  const [subCategory, setSubCategory] = useState("");
+  const [description, setdescription] = useState("");
+  const [preferredLanguage, setPreferredLanguage] = useState("");
+  const [from, setfrom] = useState("");
+  const [till, setTill] = useState("");
 
-  useEffect(() => {
-    setTimeout(() => {
-      QuerydetailsValid();
-      setData(true);
-    }, 2000);
-  }, []);
 
   const navigate = useNavigate();
-  const queryValidationSchema = yup.object({
-    subject: yup.string().required("Select a subject"),
-    category: yup.string().required("Select a category"),
-    subCategory: yup.number().required("Select a subcategory"),
-    description: yup.string().required("Select a description"),
-    preferredLanguage: yup.string().required("Select a preferred language"),
-    from: yup.string().required("You are available from time?"),
-    till: yup.string().required("You are available from till?"),
-  });
 
-  const addquery = (newquery) => {
-    let token = localStorage.getItem("usersdatatoken");
+  const addquery = () => {
+    const newquery = {
+      subject: subject,
+      category: category,
+      subCategory: subCategory,
+      description: description,
+      preferredLanguage: preferredLanguage,
+      from: from,
+      till: till,
+    };
+  
+    console.log("newquery",newquery)
+    setStudentlist([...studentlist, newquery]);
+  
+    console.log("Studenlist",studentlist)
+
+  let token = localStorage.getItem("usersdatatoken");
+  
+  fetch(`${API}/queries`, {
+    method: "POST",
+    body: JSON.stringify(newquery),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  }).then(() => navigate("/dash"));
+
+
+
+
+}
+
    
-    fetch(`${API}/queries`, {
-      method: "POST",
-      body: JSON.stringify(newquery),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    }).then(() => navigate("/dash"));
-  };
-  const { handleSubmit, values, handleChange, handleBlur, touched, errors } =
-    useFormik({
-      initialValues: {
-        subject: "",
-        category: "",
-        subCategory: "",
-        description: "",
-        preferredLanguage: "",
-        from: "",
-        till: "",
-      },
-      validationSchema: queryValidationSchema,
-      onSubmit: (newquery) => {
-        console.log("onSubmit", newquery);
-        addquery(newquery);
-      },
-    });
-
   return (
     <>
       <Header />
       <div className="dash1">
         <button className="backbtn" onClick={() => navigate(-1)}>
-      
           Back
         </button>
       </div>
-      <form className="QuerydetailsContainer" onSubmit={handleSubmit}>
+      <form className="QuerydetailsContainer" method="POST">
         <div className="Topic">Topic</div>
         <div className="div1">
           <div className="div2">
             <label className="Category">Category</label>
-            <input
-              type="text"
-              class="form-control"
-              id="usr"
-              name="category"
-              value={values.category}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.category && errors.category}
-              helperText={
-                touched.category && errors.category ? errors.category : ""
-              }
-            ></input>
+            <div class="input-group ">
+              <select
+                class="form-select inpgrp"
+                onChange={(event) => setcategory(event.target.value)}
+                name="category"
+              >
+                <option selected>---Select category---</option>
+                <option>Zen Class Doubt</option>
+                <option>Placement Related</option>
+                <option>Coordination Related</option>
+                <option>PreBootcamp Related</option>
+              </select>
+            </div>
           </div>
           <div className="div2">
             <label className="Category">Sub-Category</label>
-            <input
-              type="text"
-              class="form-control"
-              id="usr"
-              name="subCategory"
-              value={values.subCategory}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.subCategory && errors.subCategory}
-              helperText={
-                touched.subCategory && errors.subCategory ? errors.subCategory : ""
-              }
-            ></input>
-            
+            <div class="input-group ">
+              <select
+                class="form-select inpgrp"
+                onChange={(event) => setSubCategory(event.target.value)}
+                name="subCategory"
+              >
+                <option selected>---Select subcategory---</option>
+                <option>Task</option>
+                <option>WebCode</option>
+                <option>ClassTopic</option>
+                <option>Webkata</option>
+                <option>Codekata</option>
+                <option>Assignment</option>
+              </select>
+            </div>
           </div>
           <div className="div2">
             <label className="Category">
               Prefered Voice Communication Language
             </label>
-            <input
-              type="text"
-              class="form-control"
-              id="usr"
-              name="subject"
-              value={values.preferredLanguage}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.preferredLanguage && errors.preferredLanguage}
-              helperText={
-                touched.preferredLanguage && errors.preferredLanguage ? errors.preferredLanguage : ""
-              }
-            ></input>
+            <div class="input-group ">
+              <select
+                class="form-select inpgrp"
+                onChange={(event) => setPreferredLanguage(event.target.value)}
+                name=" preferredLanguage"
+              >
+                <option selected>---Select language---</option>
+                <option>Hindi</option>
+                <option>English</option>
+                <option>Tamil</option>
+              </select>
+            </div>
           </div>
         </div>
         <div className="Topic">Details</div>
@@ -158,14 +157,8 @@ const CreateQuery = () => {
               type="text"
               class="form-control"
               id="usr"
+              onChange={(event) => setsubject(event.target.value)}
               name="subject"
-              value={values.subject}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.subject && errors.subject}
-              helperText={
-                touched.subject && errors.subject ? errors.subject : ""
-              }
             ></input>
           </div>
           <div>
@@ -174,16 +167,8 @@ const CreateQuery = () => {
               class="form-control"
               rows="5"
               id="comment"
+              onChange={(event) => setdescription(event.target.value)}
               name="description"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.description && errors.description}
-              helperText={
-                touched.description && errors.description
-                  ? errors.description
-                  : ""
-              }
             ></textarea>
           </div>
         </div>
@@ -197,12 +182,8 @@ const CreateQuery = () => {
               type="text"
               class="form-control"
               id="usr"
+              onChange={(event) => setfrom(event.target.value)}
               name="from"
-              value={values.from}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.from && errors.from}
-              helperText={touched.from && errors.from ? errors.from : ""}
             ></input>
           </div>
           <div>
@@ -211,12 +192,8 @@ const CreateQuery = () => {
               type="text"
               class="form-control"
               id="usr"
+              onChange={(event) => setTill(event.target.value)}
               name="till"
-              value={values.till}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.till && errors.till}
-              helperText={touched.till && errors.till ? errors.till : ""}
             ></input>
           </div>
         </div>
@@ -226,9 +203,10 @@ const CreateQuery = () => {
             <button className="cancelbtn" onClick={() => navigate("/dash")}>
               Cancel
             </button>
-            <button type="submit" className="createbtn" >
+            {/* <button type="button" onClick={addquery} className="createbtn">
               Create
-            </button>
+            </button> */}
+            <a type="submit" className="btn btn-primary" onClick={addquery}>create</a>
           </div>
         </div>
       </form>

@@ -7,8 +7,8 @@ import { API } from "../components/global";
 import React from "react";
 
 function StudentQuerylist() {
-  const [studentlist, setStudentlist] = useState([]);
-  console.log(studentlist)
+   const [studentlist, setStudentlist] = useState([]);
+
 
  
 
@@ -29,7 +29,7 @@ function StudentQuerylist() {
     <div >
     
     <div className="Studentqueries-list">
-    {studentlist.map((stu)=>(<Studentqueries stu={stu}  _id={stu._id} />))} 
+    {studentlist.map((stu)=>(<Studentqueries stu={stu}  _id={stu._id} setStudentlist={setStudentlist}/>))} 
 
   
     </div>
