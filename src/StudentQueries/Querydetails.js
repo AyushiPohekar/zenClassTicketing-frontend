@@ -48,7 +48,7 @@ const Querydetails = () => {
     let token = localStorage.getItem("usersdatatoken");
   const { _id } = useParams();
   const [query, setQuery] = useState({});
-
+  console.log(query)
   useEffect(() => {
     fetch(`${API}/queries/${_id}`, {
       method: "GET",

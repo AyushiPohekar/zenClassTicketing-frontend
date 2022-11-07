@@ -194,7 +194,7 @@ const Register = () => {
               Sign Up
             </button>
             <p>
-              Already have an account? <NavLink to="/">Log In</NavLink>
+              Already have an account? <NavLink to="/login">Log In</NavLink>
             </p>
           </form>
           <ToastContainer />

@@ -47,6 +47,7 @@
     flex-direction: row;
     justify-content: space-between;
     background-color: #fff;
+    margin-bottom: 1rem;
 }
 .querytitle{
     font-size: 1rem;
@@ -54,6 +55,7 @@
 }
 .querytitle:hover{
     opacity: 0.7;
+    text-decoration: underline;
 }
 .stsp{
     display: flex;
@@ -80,9 +82,26 @@
     font-size: 0.8rem;
 
 }
+.mentorquerystatus{
+    background-color:#ecc1be ;
+    color: #d60e4a;
+    padding:1px 13px ;
+    border-radius: 8px;
+    font-size: 0.8rem;
+}
+.raisedBy{
+    font-size: 1rem;
+    color: rgba(6, 85, 6, 0.884);
+    font-weight: 700;
+}
 .querydate{
     color: #415069;
     font-size: 0.8rem;
+}
+.tag{
+    color:gray;
+    font-size: 1rem;
+    margin-bottom: 5px;
 }
 
 /* Querydetails */
@@ -182,4 +201,8 @@
     justify-content: flex-end;
     margin-top:15px ;
     margin-bottom: 15px;
+}
+.stuinfo{
+    display: flex;
+    flex-direction: column;
 }

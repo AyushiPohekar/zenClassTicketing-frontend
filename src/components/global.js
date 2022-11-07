@@ -1,1 +1,1 @@
-export const API="http://localhost:8009";
+export const API="https://zenqueryapp.onrender.com";

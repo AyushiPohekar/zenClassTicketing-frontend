@@ -32,7 +32,7 @@ export default function MentorQuerylist() {
      <div >
      
      <div className="Studentqueries-list">
-     {mentorlist.map((men)=>(<MentorQueries men={men}  _id={men._id} />))} 
+     {mentorlist.map((men)=>(<MentorQueries men={men}  _id={men._id} allmentorqueries={allmentorqueries}/>))} 
  
    
      </div>

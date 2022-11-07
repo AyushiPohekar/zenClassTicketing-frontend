@@ -166,3 +166,8 @@ dashboard */
     width: 150px;
     margin-left: 2px;
 }
+.dashdiv{
+    padding: 2px;
+    background-color: #fff;
+    color: rgb(1, 1, 61);
+}

@@ -51,7 +51,7 @@ const MentorDashboard = () => {
                 data ? 
                 <>
                 <div className="dash1">
-                <button className="dashbtn" onClick={() => navigate(-1)}>Back</button>
+                  All Unassigned Student Queries are listed Below!
                 </div> 
 
                 <MentorQuerylist/>
